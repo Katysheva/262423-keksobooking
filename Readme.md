@@ -1,7 +1,7 @@
 # Личный проект «Кексобукинг» [![Build status][travis-image]][travis-url] [![Dependency status][dependency-image]][dependency-url]
 
 * Студент: [Полина Катышева](https://up.htmlacademy.ru/javascript/8/user/262423).
-* Наставник: `Неизвестно`.
+* Наставник: [Константин Дарк](https://htmlacademy.ru/profile/id353169).
 
 ---
 
