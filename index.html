@@ -40,38 +40,40 @@
         <fieldset id="housing_features" class="tokyo__filter-set">
           <label class="feature">
             <input type="checkbox" name="feature" value="wifi"><span
-            class="feature__image  feature__image--wifi"></span>
+            class="feature__image feature__image--wifi"></span>
           </label>
           <label class="feature">
             <input type="checkbox" name="feature" value="dishwasher"><span
-            class="feature__image  feature__image--dishwasher"></span>
+            class="feature__image feature__image--dishwasher"></span>
           </label>
           <label class="feature">
             <input type="checkbox" name="feature" value="parking"><span
-            class="feature__image  feature__image--parking"></span>
+            class="feature__image feature__image--parking"></span>
           </label>
           <label class="feature">
             <input type="checkbox" name="feature" value="washer"><span
-            class="feature__image  feature__image--washer"></span>
+            class="feature__image feature__image--washer"></span>
           </label>
           <label class="feature">
             <input type="checkbox" name="feature" value="elevator"><span
-            class="feature__image  feature__image--elevator"></span>
+            class="feature__image feature__image--elevator"></span>
           </label>
           <label class="feature">
             <input type="checkbox" name="feature" value="conditioner"><span
-            class="feature__image  feature__image--conditioner"></span>
+            class="feature__image feature__image--conditioner"></span>
           </label>
         </fieldset>
       </form>
     </div>
+
     <div class="tokyo__pin-map">
-      <div class="pin  pin__main"><img src="img/main-pin-image.png" alt="Main Pin" class="rounded" width="40" height="44"></div>
-      <div class="pin  pin--active" style="left: 700px;top: 350px"><img src="img/avatars/avatar.png" alt="User Avatar" class="rounded" width="40" height="40"></div>
+      <div class="pin pin__main"><img src="img/main-pin-image.png" alt="Main Pin" class="rounded" width="40" height="44"></div>
+      <div class="pin pin--active" style="left: 700px;top: 350px"><img src="img/avatars/avatar.png" alt="User Avatar" class="rounded" width="40" height="40"></div>
       <div class="pin" style="left: 400px;top: 400px"><img src="img/avatars/simpson.png" alt="User Avatar" class="rounded" width="40" height="40"></div>
       <div class="pin"><img src="img/avatars/default.png" alt="User Avatar" class="rounded" width="40" height="40"></div>
     </div>
-    <div class="dialog">
+
+    <div class="dialog ">
       <div class="dialog__title"><img src="img/avatars/avatar.png" alt="Avatar" width="70" height="70">
         <a href="#" class="dialog__close"><img src="img/close.svg" alt="close" width="22" height="22"></a>
       </div>
@@ -83,12 +85,12 @@
         <p class="lodge__rooms-and-guests">2 комнаты для 3 гостей</p>
         <p class="lodge__checkin-time">Заед после 14:00, выезд до 10:00</p>
         <div class="lodge__features">
-          <span class="feature__image  feature__image--wifi"></span>
-          <span class="feature__image  feature__image--dishwasher"></span>
-          <span class="feature__image  feature__image--parking"></span>
-          <span class="feature__image  feature__image--washer"></span>
-          <span class="feature__image  feature__image--elevator"></span>
-          <span class="feature__image  feature__image--conditioner"></span>
+          <span class="feature__image feature__image--wifi"></span>
+          <span class="feature__image feature__image--dishwasher"></span>
+          <span class="feature__image feature__image--parking"></span>
+          <span class="feature__image feature__image--washer"></span>
+          <span class="feature__image feature__image--elevator"></span>
+          <span class="feature__image feature__image--conditioner"></span>
         </div>
         <p class="lodge__description">Великолепная квартира-студия в центре Токио. Подходит как туристам, там и
           бизнесменам. Квартира полностью укомплектована и имеет свежий ремонт.</p>
@@ -118,66 +120,68 @@
     <form class="notice__form">
       <div class="form__content">
         <div class="form__panel">
-          <div class="form__element  form__element--wide">
+          <div class="form__element form__element--wide">
             <label for="title">Заголовок объявления</label>
-            <input id="title" type="text" placeholder="Милая, уютная квартирка, например">
+            <input id="title" type="text"
+                   placeholder="Милая, уютная квартирка, например"
+                   minlength="30" maxlength="100" required>
           </div>
           <div class="form__row">
             <div class="form__element">
               <label for="type">Тип жилья</label>
               <select id="type">
-                <option selected>Квартира</option>
-                <option>Лачуга</option>
-                <option>Дворец</option>
+                <option data-price="1000" selected>Квартира</option>
+                <option data-price="0">Лачуга</option>
+                <option data-price="10000">Дворец</option>
               </select>
             </div>
             <div class="form__element">
               <label for="price">Цена за ночь, руб.</label>
-              <input id="price" type="number" placeholder="5000">
+              <input id="price" type="number" placeholder="5000" min="1000" max="1000000" required>
             </div>
           </div>
           <div class="form__row">
             <div class="form__element">
               <label for="room_number">Кол-во комнат</label>
               <select id="room_number">
-                <option selected>1 комната</option>
-                <option>2 комнаты</option>
-                <option>100 комнат</option>
+                <option data-rooms-count="1" selected>1 комната</option>
+                <option data-rooms-count="2">2 комнаты</option>
+                <option data-rooms-count="100">100 комнат</option>
               </select>
             </div>
             <div class="form__element">
               <label for="capacity">Количество мест</label>
               <select id="capacity">
-                <option selected>для 3 гостей</option>
-                <option>не для гостей</option>
+                <option data-quests-count="3" selected>для 3 гостей</option>
+                <option data-quests-count="0">не для гостей</option>
               </select>
             </div>
           </div>
-          <div class="form__element  form__element--wide">
+          <div class="form__element form__element--wide">
             <label for="description">Описание (не обязательно)</label>
             <textarea id="description" placeholder="Здесь расскажите о том, какое ваше жилье замечательное и вообще"></textarea>
           </div>
         </div>
         <div class="form__panel">
-          <div class="form__element  form__element--wide">
+          <div class="form__element form__element--wide">
             <label for="address">Адрес</label>
-            <input id="address" type="text">
+            <input id="address" type="text" required>
           </div>
           <div class="form__row">
             <div class="form__element">
               <label for="time">Время заезда и выезда</label>
               <select id="time">
-                <option selected>После 12</option>
-                <option>После 13</option>
-                <option>После 14</option>
+                <option value="12" selected>После 12</option>
+                <option value="13">После 13</option>
+                <option value="14">После 14</option>
               </select>
             </div>
             <div class="form__element">
               <label for="timeout">&nbsp;</label>
               <select id="timeout" title="Time to go out">
-                <option selected>Выезд до 12</option>
-                <option>Выезд до 13</option>
-                <option>Выезд до 14</option>
+                <option value="12" selected>Выезд до 12</option>
+                <option value="13">Выезд до 13</option>
+                <option value="14">Выезд до 14</option>
               </select>
             </div>
           </div>
@@ -186,34 +190,34 @@
             <fieldset id="features">
               <label class="feature">
                 <input type="checkbox" name="feature" value="wifi"><span
-                class="feature__image  feature__image--wifi"></span>
+                class="feature__image feature__image--wifi"></span>
               </label>
               <label class="feature">
                 <input type="checkbox" name="feature" value="dishwasher"><span
-                class="feature__image  feature__image--dishwasher"></span>
+                class="feature__image feature__image--dishwasher"></span>
               </label>
               <label class="feature">
                 <input type="checkbox" name="feature" value="parking"><span
-                class="feature__image  feature__image--parking"></span>
+                class="feature__image feature__image--parking"></span>
               </label>
               <label class="feature">
                 <input type="checkbox" name="feature" value="washer"><span
-                class="feature__image  feature__image--washer"></span>
+                class="feature__image feature__image--washer"></span>
               </label>
               <label class="feature">
                 <input type="checkbox" name="feature" value="elevator"><span
-                class="feature__image  feature__image--elevator"></span>
+                class="feature__image feature__image--elevator"></span>
               </label>
               <label class="feature">
                 <input type="checkbox" name="feature" value="conditioner"><span
-                class="feature__image  feature__image--conditioner"></span>
+                class="feature__image feature__image--conditioner"></span>
               </label>
             </fieldset>
           </div>
           <div class="form__element">
             <label>Фотографии жилья</label>
             <div class="form__photo-container">
-              <div class="drop-zone  upload">
+              <div class="drop-zone upload">
                 <input type="file">
                 <span class="drop-zone">Загрузите или&nbsp;перетащите сюда фото</span>
               </div>
@@ -255,6 +259,8 @@
     </nav>
   </div>
 </footer>
+
+<script src="js/form.js" type="application/javascript"></script>
 
 </body>
 </html>
