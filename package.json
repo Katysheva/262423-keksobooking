@@ -14,6 +14,7 @@
   "homepage": "https://github.com/htmlacademy-javascript/262423-keksobooking",
   "devDependencies": {
     "eslint": "3.9.0",
+    "eslint-config-google": "^0.7.1",
     "eslint-config-htmlacademy": "0.2.x",
     "eslint-plugin-requirejs": "2.0.1"
   },
