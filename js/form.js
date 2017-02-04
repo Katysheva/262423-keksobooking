@@ -4,23 +4,35 @@ var pinsContainerElement = document.querySelector('.tokyo > .tokyo__pin-map');
 var dialogElement = document.querySelector('.dialog');
 var noticeFormElement = document.querySelector('.notice__form');
 
-var placeType = noticeFormElement.querySelector('#type');
-var priceInput = noticeFormElement.querySelector('#price');
+var placeTypeElement = noticeFormElement.querySelector('#type');
+var priceInputElement = noticeFormElement.querySelector('#price');
 
+setValidationValue();
 
-subscribeAll();
+subscribePins();
 
+subscribeDialogs();
 
-function subscribeAll() {
-  subscribePins();
+subscribeTime();
 
-  subscribeDialogs();
+subscribeRoomAndCapacity();
 
-  subscribeTime();
+subscribePlaceTypeElementAndPrice();
 
-  subscribeRoomAndCapacity();
+function setValidationValue() {
 
-  subscribePlaceTypeAndPrice();
+  var noticeTitleElement = noticeFormElement.querySelector('#title');
+  var addressElement = noticeFormElement.querySelector('#address');
+
+  noticeTitleElement.minLength = '30';
+  noticeTitleElement.maxLength = '100';
+  noticeTitleElement.required = 'true';
+
+  priceInputElement.min = '1000';
+  priceInputElement.max = '1000000';
+  priceInputElement.required = 'true';
+
+  addressElement.required = 'true';
 }
 
 /**
@@ -52,8 +64,8 @@ function handleOnClickPin(event) {
 */
 
 function subscribeDialogs() {
-  dialogElement.querySelector('.dialog__close')
-    .addEventListener('click', handleOnClickDialogClose);
+  var dialogCloseElement = dialogElement.querySelector('.dialog__close');
+  dialogCloseElement.addEventListener('click', handleOnClickDialogClose);
 }
 
 function handleOnClickDialogClose(event) {
@@ -90,7 +102,7 @@ function handleOnChangeTime(changeableElement) {
         option.selected = true;
       }
     }
-  }
+  };
 }
 
 /**
@@ -98,31 +110,34 @@ function handleOnChangeTime(changeableElement) {
 */
 
 function subscribeRoomAndCapacity() {
-  var roomNumberElement = noticeFormElement.querySelector('#room_number');
-  var capacityElement = noticeFormElement.querySelector('#capacity');
+  var roomNumberEl = noticeFormElement.querySelector('#room_number');
+  var capacityEl = noticeFormElement.querySelector('#capacity');
 
-  roomNumberElement.addEventListener('change', handleOnChangeRoomNumber(capacityElement.children));
-  capacityElement.addEventListener('change', handleOnChangeCapacity(roomNumberElement.children));
+  var capOptions = capacityEl.children;
+  var roomOption = roomNumberEl.children;
+
+  roomNumberEl.addEventListener('change', handleOnChangeRoomNumber(capOptions));
+  capacityEl.addEventListener('change', handleOnChangeCapacity(roomOption));
 }
 
 function handleOnChangeRoomNumber(capacityOptions) {
 
   return function innerHandleOnChangeRoomNumber(event) {
-    var element = event.target;
-    var curRoomNumber = parseInt(element.options[element.selectedIndex].value, 10);
+    var el = event.target;
+    var curRoomNumber = parseInt(el.options[el.selectedIndex].value, 10);
 
-    getGuestCapacity(capacityOptions, curRoomNumber);
-  }
+    changeGuestCapasity(capacityOptions, curRoomNumber);
+  };
 }
 
 function handleOnChangeCapacity(roomNumberOptions) {
 
   return function innerHandleOnChangeCapacity(event) {
-    var element = event.target;
-    var curCapacity = parseInt(element.options[element.selectedIndex].value, 10);
+    var el = event.target;
+    var curCapacity = parseInt(el.options[el.selectedIndex].value, 10);
 
-    getRoomNumbers(roomNumberOptions, curCapacity);
-  }
+    changeRoomNumbers(roomNumberOptions, curCapacity);
+  };
 }
 
 
@@ -130,39 +145,40 @@ function handleOnChangeCapacity(roomNumberOptions) {
 * type of place & price binding
 */
 
-function subscribePlaceTypeAndPrice() {
-  placeType.addEventListener('change', handleOnChangePlaceType);
-
-  priceInput.addEventListener('change', handleOnChangePriceInput(placeType.children));
+function subscribePlaceTypeElementAndPrice() {
+  placeTypeElement.addEventListener('change', handleOnChangePlaceElement);
+  var placeOpt = placeTypeElement.children;
+  priceInputElement.addEventListener('change', handleOnChangePriceEl(placeOpt));
 }
 
-function handleOnChangePlaceType (event) {
-  priceInput.value = event.target.options[event.target.selectedIndex].value;
+function handleOnChangePlaceElement (event) {
+  var element = event.target;
+  priceInputElement.min = element.options[element.selectedIndex].value;
 }
 
-function handleOnChangePriceInput (placeTypeOptions) {
+function handleOnChangePriceEl (placeTypeElementOptions) {
 
-  return function innerHandleOnChangePriceInput(event) {
+  return function innerHandleOnChangePriceInputElement(event) {
 
-    var placeValues = sortPlaceTypeByValue(placeTypeOptions);
-    var priceValue = parseInt(event.target.value, 10);
+    var placeVals = sortplaceTypeElementByValue(placeTypeElementOptions);
+    var priceVal = parseInt(event.target.value, 10);
     var curValue = 0;
 
-    for (var j = 0; j <= placeValues.length - 1; j++) {
+    for (var j = 0; j <= placeVals.length - 1; j++) {
 
-      if (!placeValues[j + 1] && priceValue >= placeValues[j]) {
-        curValue = placeValues[placeValues.length - 1];
-      } else if (priceValue >= placeValues[j] && priceValue < placeValues[j + 1]) {
-        curValue = placeValues[j];
+      if (!placeVals[j + 1] && priceVal >= placeVals[j]) {
+        curValue = placeVals[placeVals.length - 1];
+      } else if (priceVal >= placeVals[j] && priceVal < placeVals[j + 1]) {
+        curValue = placeVals[j];
       }
     }
 
-    for (var k = 0; k <= placeTypeOptions.length - 1; k++) {
-      if (curValue === parseInt(placeTypeOptions[k].value, 10)) {
-        placeTypeOptions[k].selected = true;
+    for (var k = 0; k <= placeTypeElementOptions.length - 1; k++) {
+      if (curValue === parseInt(placeTypeElementOptions[k].value, 10)) {
+        placeTypeElementOptions[k].selected = true;
       }
     }
-  }
+  };
 }
 
 /**
@@ -181,21 +197,23 @@ function openDialog(dialog) {
   dialog.classList.remove('invisible');
 }
 
-function getGuestCapacity(options, roomsCount) {
+function changeGuestCapasity(options, roomsCount) {
   for (var k = 0; k <= options.length - 1; k++) {
-    var currentOptionVal = parseInt(options[k].value, 10);
+    var curVal = parseInt(options[k].value, 10);
 
-    if ((roomsCount === 1 && currentOptionVal === 0) ||
-      (roomsCount > 1 && currentOptionVal === 3)) {
+    if (roomsCount === 1 && curVal === 0) {
       options[k].selected = true;
 
-  } else {
-    options[k].selected = false;
+    } else if (roomsCount > 1 && curVal === 3) {
+      options[k].selected = true;
+
+    } else {
+      options[k].selected = false;
+    }
   }
 }
-}
 
-function getRoomNumbers(options, guestCapacity) {
+function changeRoomNumbers(options, guestCapacity) {
   for (var i = 0; i <= options.length - 1; i++) {
     var currentOptionVal = parseInt(options[i].value, 10);
 
@@ -211,22 +229,16 @@ function getRoomNumbers(options, guestCapacity) {
   }
 }
 
-function sortPlaceTypeByValue(placeTypeOptions) {
-  var placeTypeValues = [];
+function sortplaceTypeElementByValue(placeTypeElementOptions) {
+  var placeTypeElementValues = [];
 
-  for (var i = 0; i <= placeTypeOptions.length - 1; i++) {
-    placeTypeValues.push(parseInt(placeTypeOptions[i].value, 10));
+  for (var i = 0; i <= placeTypeElementOptions.length - 1; i++) {
+    placeTypeElementValues.push(parseInt(placeTypeElementOptions[i].value, 10));
   }
 
-  return placeTypeValues.sort(compareNumeric);
+  return placeTypeElementValues.sort(compareNumeric);
 }
 
 function compareNumeric(a, b) {
-  if (a > b) {
-    return 1;
-  } else if (a < b) {
-    return -1;
-  } else {
-    return 0;
-  }
+  return a - b;
 }
