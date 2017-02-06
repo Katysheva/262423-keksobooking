@@ -7,6 +7,8 @@ var noticeFormElement = document.querySelector('.notice__form');
 var placeTypeElement = noticeFormElement.querySelector('#type');
 var priceInputElement = noticeFormElement.querySelector('#price');
 
+var ENTER_KEY_CODE = 13;
+
 setValidationValue();
 
 subscribePins();
@@ -40,22 +42,26 @@ function setValidationValue() {
 */
 
 function subscribePins() {
-  var pinElements = pinsContainerElement.querySelectorAll('.pin');
-
-  for (var i = 0; i <= pinElements.length - 1; i++) {
-    pinElements[i].addEventListener('click', handleOnClickPin);
-  }
+  pinsContainerElement.addEventListener('click', handleOnClickPin);
+  pinsContainerElement.addEventListener('keydown', handleOnClickPin);
 }
 
 function handleOnClickPin(event) {
-  var element = event.currentTarget;
 
-  if (!element.classList.contains('pin--active')) {
-    removePinActiveClass();
+  if (event.type === 'click' || event.keyCode === ENTER_KEY_CODE) {
+    var element = event.target;
 
-    element.classList.add('pin--active');
+    if (element.offsetParent.classList.contains('pin')) {
+      element = event.target.offsetParent;
+    }
 
-    openDialog(dialogElement);
+    if (!element.classList.contains('pin--active')) {
+      removePinActiveClass();
+
+      element.classList.add('pin--active');
+
+      openDialog(dialogElement);
+    }
   }
 }
 
@@ -66,14 +72,16 @@ function handleOnClickPin(event) {
 function subscribeDialogs() {
   var dialogCloseElement = dialogElement.querySelector('.dialog__close');
   dialogCloseElement.addEventListener('click', handleOnClickDialogClose);
+  dialogCloseElement.addEventListener('keydown', handleOnClickDialogClose);
 }
 
 function handleOnClickDialogClose(event) {
   event.preventDefault();
+  if (event.type === 'click' || event.keyCode === ENTER_KEY_CODE) {
+    dialogElement.classList.add('invisible');
 
-  dialogElement.classList.add('invisible');
-
-  removePinActiveClass();
+    removePinActiveClass();
+  }
 }
 
 /**
