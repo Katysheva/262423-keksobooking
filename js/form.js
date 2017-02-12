@@ -1,19 +1,13 @@
 'use strict';
 
-var pinsContainerElement = document.querySelector('.tokyo > .tokyo__pin-map');
-var dialogElement = document.querySelector('.dialog');
 var noticeFormElement = document.querySelector('.notice__form');
 
 var placeTypeElement = noticeFormElement.querySelector('#type');
 var priceInputElement = noticeFormElement.querySelector('#price');
 
-var ENTER_KEY_CODE = 13;
+window.initializePins();
 
 setValidationValue();
-
-subscribePins();
-
-subscribeDialogs();
 
 subscribeTime();
 
@@ -35,53 +29,6 @@ function setValidationValue() {
   priceInputElement.required = 'true';
 
   addressElement.required = 'true';
-}
-
-/**
-* show announcement card
-*/
-
-function subscribePins() {
-  pinsContainerElement.addEventListener('click', handleOnClickPin);
-  pinsContainerElement.addEventListener('keydown', handleOnClickPin);
-}
-
-function handleOnClickPin(event) {
-
-  if (event.type === 'click' || event.keyCode === ENTER_KEY_CODE) {
-    var element = event.target;
-
-    if (element.offsetParent.classList.contains('pin')) {
-      element = event.target.offsetParent;
-    }
-
-    if (!element.classList.contains('pin--active')) {
-      removePinActiveClass();
-
-      element.classList.add('pin--active');
-
-      openDialog(dialogElement);
-    }
-  }
-}
-
-/**
-* close announcement card
-*/
-
-function subscribeDialogs() {
-  var dialogCloseElement = dialogElement.querySelector('.dialog__close');
-  dialogCloseElement.addEventListener('click', handleOnClickDialogClose);
-  dialogCloseElement.addEventListener('keydown', handleOnClickDialogClose);
-}
-
-function handleOnClickDialogClose(event) {
-  event.preventDefault();
-  if (event.type === 'click' || event.keyCode === ENTER_KEY_CODE) {
-    dialogElement.classList.add('invisible');
-
-    removePinActiveClass();
-  }
 }
 
 /**
@@ -192,18 +139,6 @@ function handleOnChangePriceEl (placeTypeElementOptions) {
 /**
 * common functions
 */
-
-function removePinActiveClass() {
-  var pinActiveItems = pinsContainerElement.querySelectorAll('.pin--active');
-
-  for (var i = 0; i <= pinActiveItems.length - 1; i++) {
-    pinActiveItems[i].classList.remove('pin--active');
-  }
-}
-
-function openDialog(dialog) {
-  dialog.classList.remove('invisible');
-}
 
 function changeGuestCapasity(options, roomsCount) {
   for (var k = 0; k <= options.length - 1; k++) {
