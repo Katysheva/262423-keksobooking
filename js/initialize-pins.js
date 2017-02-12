@@ -5,7 +5,7 @@ var dialogElement = document.querySelector('.dialog');
 
 var ENTER_KEY_CODE = 13;
 
-function initializePins() {
+window.initializePins = function () {
 
   subscribePins();
 
