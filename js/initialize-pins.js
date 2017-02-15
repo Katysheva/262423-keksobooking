@@ -7,9 +7,39 @@ var ENTER_KEY_CODE = 13;
 
 window.initializePins = function () {
 
-  subscribePins();
+  // subscribePins();
 
-  subscribeDialogs();
+  // subscribeDialogs();
+
+  (function () {
+    pinsContainerElement.addEventListener('click', handleOnClickPin);
+    pinsContainerElement.addEventListener('keydown', handleOnClickPin);
+
+    function handleOnClickPin(event) {
+
+      if (event.type === 'click' || event.keyCode === ENTER_KEY_CODE) {
+        var element = event.target;
+
+        if (element.offsetParent.classList.contains('pin')) {
+          element = event.target.offsetParent;
+        }
+
+        if (!element.classList.contains('pin--active')) {
+          removePinActiveClass();
+
+          element.classList.add('pin--active');
+
+          openDialog(dialogElement);
+        }
+      }
+    }
+  })();
+
+  (function () {
+    var dialogCloseElement = dialogElement.querySelector('.dialog__close');
+    dialogCloseElement.addEventListener('click', handleOnClickDialogClose);
+    dialogCloseElement.addEventListener('keydown', handleOnClickDialogClose);
+  })();
 
 }
 
@@ -17,39 +47,18 @@ window.initializePins = function () {
 * show announcement card
 */
 
-function subscribePins() {
-  pinsContainerElement.addEventListener('click', handleOnClickPin);
-  pinsContainerElement.addEventListener('keydown', handleOnClickPin);
-}
+// function subscribePins() {
+//   pinsContainerElement.addEventListener('click', handleOnClickPin);
+//   pinsContainerElement.addEventListener('keydown', handleOnClickPin);
+// }
 
-function handleOnClickPin(event) {
 
-  if (event.type === 'click' || event.keyCode === ENTER_KEY_CODE) {
-    var element = event.target;
-
-    if (element.offsetParent.classList.contains('pin')) {
-      element = event.target.offsetParent;
-    }
-
-    if (!element.classList.contains('pin--active')) {
-      removePinActiveClass();
-
-      element.classList.add('pin--active');
-
-      openDialog(dialogElement);
-    }
-  }
-}
 
 /**
 * close announcement card
 */
 
-function subscribeDialogs() {
-  var dialogCloseElement = dialogElement.querySelector('.dialog__close');
-  dialogCloseElement.addEventListener('click', handleOnClickDialogClose);
-  dialogCloseElement.addEventListener('keydown', handleOnClickDialogClose);
-}
+
 
 function handleOnClickDialogClose(event) {
   event.preventDefault();
