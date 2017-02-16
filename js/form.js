@@ -5,7 +5,7 @@ var noticeFormElement = document.querySelector('.notice__form');
 var placeTypeElement = noticeFormElement.querySelector('#type');
 var priceInputElement = noticeFormElement.querySelector('#price');
 
-window.initializePins();
+window.initializePins;
 
 (function () {
 
