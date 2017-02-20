@@ -15,26 +15,25 @@ window.initializePins = (function () {
 (function () {
   pinsContainerElement.addEventListener('click', handleOnClickPin);
   pinsContainerElement.addEventListener('keydown', handleOnClickPin);
-})();
 
-function handleOnClickPin(event) {
+  function handleOnClickPin(event) {
 
-  if (event.type === 'click' || event.keyCode === ENTER_KEY_CODE) {
-    var element = event.target;
+    if (event.type === 'click' || event.keyCode === ENTER_KEY_CODE) {
+      var element = event.target;
 
-    if (element.offsetParent.classList.contains('pin')) {
-      element = event.target.offsetParent;
+      if (element.offsetParent.classList.contains('pin')) {
+        element = event.target.offsetParent;
+      }
+
+      if (!element.classList.contains('pin--active')) {
+        removePinActiveClass();
+
+        element.classList.add('pin--active');
+
+        openDialog(dialogElement);
+      }
     }
-
-    if (!element.classList.contains('pin--active')) {
-      removePinActiveClass();
-
-      element.classList.add('pin--active');
-
-      openDialog(dialogElement);
-    }
-  }
-}
+  }})();
 
 /**
 * close announcement card
@@ -44,16 +43,15 @@ function handleOnClickPin(event) {
   var dialogCloseElement = dialogElement.querySelector('.dialog__close');
   dialogCloseElement.addEventListener('click', handleOnClickDialogClose);
   dialogCloseElement.addEventListener('keydown', handleOnClickDialogClose);
-})();
 
-function handleOnClickDialogClose(event) {
-  event.preventDefault();
-  if (event.type === 'click' || event.keyCode === ENTER_KEY_CODE) {
-    dialogElement.classList.add('invisible');
+  function handleOnClickDialogClose(event) {
+    event.preventDefault();
+    if (event.type === 'click' || event.keyCode === ENTER_KEY_CODE) {
+      dialogElement.classList.add('invisible');
 
-    removePinActiveClass();
-  }
-}
+      removePinActiveClass();
+    }
+  }})();
 
 /**
 * common functions
@@ -70,6 +68,4 @@ function removePinActiveClass() {
 function openDialog(dialog) {
   dialog.classList.remove('invisible');
 }
-
-
 })();
