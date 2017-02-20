@@ -1,64 +1,57 @@
 'use strict';
 
-var pinsContainerElement = document.querySelector('.tokyo > .tokyo__pin-map');
-var dialogElement = document.querySelector('.dialog');
 
-var ENTER_KEY_CODE = 13;
 
-window.initializePins = function () {
+window.initializePins = (function () {
 
-  subscribePins();
+  var pinsContainerElement = document.querySelector('.tokyo > .tokyo__pin-map');
+  var dialogElement = document.querySelector('.dialog');
 
-  subscribeDialogs();
-
-}
-
+  var ENTER_KEY_CODE = 13;
 /**
 * show announcement card
 */
 
-function subscribePins() {
+(function () {
   pinsContainerElement.addEventListener('click', handleOnClickPin);
   pinsContainerElement.addEventListener('keydown', handleOnClickPin);
-}
 
-function handleOnClickPin(event) {
+  function handleOnClickPin(event) {
 
-  if (event.type === 'click' || event.keyCode === ENTER_KEY_CODE) {
-    var element = event.target;
+    if (event.type === 'click' || event.keyCode === ENTER_KEY_CODE) {
+      var element = event.target;
 
-    if (element.offsetParent.classList.contains('pin')) {
-      element = event.target.offsetParent;
+      if (element.offsetParent.classList.contains('pin')) {
+        element = event.target.offsetParent;
+      }
+
+      if (!element.classList.contains('pin--active')) {
+        removePinActiveClass();
+
+        element.classList.add('pin--active');
+
+        openDialog(dialogElement);
+      }
     }
-
-    if (!element.classList.contains('pin--active')) {
-      removePinActiveClass();
-
-      element.classList.add('pin--active');
-
-      openDialog(dialogElement);
-    }
-  }
-}
+  }})();
 
 /**
 * close announcement card
 */
 
-function subscribeDialogs() {
+(function () {
   var dialogCloseElement = dialogElement.querySelector('.dialog__close');
   dialogCloseElement.addEventListener('click', handleOnClickDialogClose);
   dialogCloseElement.addEventListener('keydown', handleOnClickDialogClose);
-}
 
-function handleOnClickDialogClose(event) {
-  event.preventDefault();
-  if (event.type === 'click' || event.keyCode === ENTER_KEY_CODE) {
-    dialogElement.classList.add('invisible');
+  function handleOnClickDialogClose(event) {
+    event.preventDefault();
+    if (event.type === 'click' || event.keyCode === ENTER_KEY_CODE) {
+      dialogElement.classList.add('invisible');
 
-    removePinActiveClass();
-  }
-}
+      removePinActiveClass();
+    }
+  }})();
 
 /**
 * common functions
@@ -75,3 +68,4 @@ function removePinActiveClass() {
 function openDialog(dialog) {
   dialog.classList.remove('invisible');
 }
+})();
