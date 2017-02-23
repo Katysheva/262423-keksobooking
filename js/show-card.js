@@ -1,5 +1,5 @@
 'use strict';
 
-window.showCard = function () {
-
+window.showCard = function (dialog) {
+  dialog.classList.remove('invisible');
 }
