@@ -25,13 +25,21 @@ var priceInputElement = noticeFormElement.querySelector('#price');
 * checking time block
 */
 
+var syncValueWithMin = function(element, value) {
+  element.min = value;
+};
+
+var syncValues = function(element, value) {
+  element.value = value;
+};
+
 (function () {
   var startTime = document.getElementById('time');
   var endTime = document.getElementById('timeout');
   var timeValues = ['12', '13', '14'];
 
-  window.synchronizeFields(startTime, endTime, timeValues, timeValues, 'value');
-  window.synchronizeFields(endTime, startTime, timeValues, timeValues, 'value');
+  window.synchronizeFields(startTime, endTime, timeValues, timeValues, syncValues);
+  window.synchronizeFields(endTime, startTime, timeValues, timeValues, syncValues);
 })();
 
 /**
@@ -42,7 +50,7 @@ var priceInputElement = noticeFormElement.querySelector('#price');
   var roomNumberEl = noticeFormElement.querySelector('#room_number');
   var capacityEl = noticeFormElement.querySelector('#capacity');
 
-  window.synchronizeFields(roomNumberEl, capacityEl, ['1', '2', '100'], ['0', '3', '3'], 'value');
+  window.synchronizeFields(roomNumberEl, capacityEl, ['1', '2', '100'], ['0', '3', '3'], syncValues);
 })();
 
 /**
@@ -51,5 +59,5 @@ var priceInputElement = noticeFormElement.querySelector('#price');
 
 (function () {
   var priceValues = ['1000', '0', '10000'];
-  window.synchronizeFields(placeTypeElement, priceInputElement, priceValues, priceValues, 'min');
+  window.synchronizeFields(placeTypeElement, priceInputElement, priceValues, priceValues, syncValueWithMin);
 })();
