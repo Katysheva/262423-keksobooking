@@ -1,6 +1,27 @@
 'use strict';
 
+window.load(function(evt) {
+  var similarApartments = evt.target.response;
 
+  showSimilarPosts(similarApartments);
+
+});
+
+function showSimilarPosts(apartmentsArray) {
+  if ('content' in document.createElement('template')) {
+    for (var i = 0; i < 3; i++) {
+
+      var templateElement = document.querySelector('#pin-template');
+      templateElement.content.querySelector('img').src = apartmentsArray[i].author.avatar;
+
+      var currentTemplatePin = templateElement.content.querySelector('.pin');
+      currentTemplatePin.style.top = apartmentsArray[i].location.y + 'px';
+      currentTemplatePin.style.left = apartmentsArray[i].location.x + 'px';
+
+      document.body.appendChild(templateElement.content.cloneNode(true));
+    }
+  }
+}
 
 window.initializePins = (function () {
 
@@ -8,6 +29,7 @@ window.initializePins = (function () {
   var dialogElement = document.querySelector('.dialog');
 
   var ENTER_KEY_CODE = 13;
+
 /**
 * show announcement card
 */
@@ -17,6 +39,7 @@ window.initializePins = (function () {
   pinsContainerElement.addEventListener('keydown', handleOnClickPin);
 
   function handleOnClickPin(event) {
+    console.log(event);
 
     if (event.type === 'click' || event.keyCode === ENTER_KEY_CODE) {
       var element = event.target;
@@ -29,10 +52,11 @@ window.initializePins = (function () {
         removePinActiveClass();
 
         element.classList.add('pin--active');
-        window.showCard(dialogElement);
+        // window.showCard(dialogElement);
       }
     }
-  }})();
+  }
+})();
 
 /**
 * close announcement card

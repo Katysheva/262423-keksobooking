@@ -70,7 +70,7 @@
         <div class="pin pin__main" role="radio" aria-checked="false" tabindex="1">
           <img src="img/main-pin-image.png" alt="Main Pin" class="rounded" width="40" height="44">
         </div>
-        <div class="pin pin--active" role="radio" aria-checked="false" tabindex="1" style="left: 700px;top: 350px">
+<!--         <div class="pin pin--active" role="radio" aria-checked="false" tabindex="1" style="left: 700px;top: 350px">
           <img src="img/avatars/avatar.png" alt="User Avatar" class="rounded" width="40" height="40">
         </div>
         <div class="pin" role="radio" aria-checked="false" tabindex="1" style="left: 400px;top: 400px">
@@ -78,8 +78,14 @@
         </div>
         <div class="pin" role="radio" aria-checked="false" tabindex="1">
           <img src="img/avatars/default.png" alt="User Avatar" class="rounded" width="40" height="40">
-        </div>
+        </div> -->
       </div>
+
+      <template id="pin-template">
+        <div class="pin" role="radio" aria-checked="false" tabindex="1">
+          <img src="" alt="" class="rounded" width="40" height="40">
+        </div>
+      </template>
 
       <div class="dialog" role="dialog" aria-labelledby="dialog-title" aria-describedby="dialog-description">
         <div class="dialog__title"><img src="img/avatars/avatar.png" alt="Avatar" width="70" height="70">
@@ -93,7 +99,7 @@
           <h3 class="lodge__price">5200&#x20bd;/ночь</h3>
           <h4 class="lodge__type">Квартира</h4>
           <p class="lodge__rooms-and-guests">2 комнаты для 3 гостей</p>
-          <p class="lodge__checkin-time">Заед после 14:00, выезд до 10:00</p>
+          <p class="lodge__checkin-time">Заезд после 14:00, выезд до 10:00</p>
           <div class="lodge__features">
             <span class="feature__image feature__image--wifi"></span>
             <span class="feature__image feature__image--dishwasher"></span>
@@ -271,6 +277,7 @@
     </div>
   </footer>
 
+  <script src="js/load.js" type="application/javascript"></script>
   <script src="js/show-card.js" type="application/javascript"></script>
   <script src="js/initialize-pins.js" type="application/javascript"></script>
   <script src="js/synchronize-fields.js" type="application/javascript"></script>
