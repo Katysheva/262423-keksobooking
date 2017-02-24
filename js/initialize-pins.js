@@ -29,8 +29,7 @@ window.initializePins = (function () {
         removePinActiveClass();
 
         element.classList.add('pin--active');
-
-        openDialog(dialogElement);
+        window.showCard(dialogElement);
       }
     }
   }})();
@@ -48,7 +47,6 @@ window.initializePins = (function () {
     event.preventDefault();
     if (event.type === 'click' || event.keyCode === ENTER_KEY_CODE) {
       dialogElement.classList.add('invisible');
-
       removePinActiveClass();
     }
   }})();
@@ -65,7 +63,7 @@ function removePinActiveClass() {
   }
 }
 
-function openDialog(dialog) {
-  dialog.classList.remove('invisible');
-}
+// function openDialog(dialog) {
+//   dialog.classList.remove('invisible');
+// }
 })();
