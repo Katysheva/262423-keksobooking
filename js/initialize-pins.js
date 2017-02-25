@@ -6,12 +6,12 @@ window.initializePins = (function () {
   var dialogElement = document.querySelector('.dialog');
 
   var ENTER_KEY_CODE = 13;
-  var similarApartments;
+  var chosenSimilarApartments;
 
   window.load(function (evt) {
-    similarApartments = evt.target.response;
+    var similarApartments = evt.target.response;
 
-    showSimilarPosts(similarApartments);
+    chosenSimilarApartments = showSimilarPosts(evt.target.response);
 
     subscribePins();
   });
@@ -30,15 +30,19 @@ function handleOnClickPin(event) {
   if (event.type === 'click' || event.keyCode === ENTER_KEY_CODE) {
     var element = event.target;
 
-    if (element.offsetParent.classList.contains('pin')) {
-      element = event.target.offsetParent;
-    }
+    if (!element.offsetParent.classList.contains('pin__main')) {
 
-    if (!element.classList.contains('pin--active')) {
-      removePinActiveClass();
+      if (element.offsetParent.classList.contains('pin')) {
+        element = event.target.offsetParent;
+      }
 
-      element.classList.add('pin--active');
-      window.showCard(dialogElement, element, similarApartments);
+      if (!element.classList.contains('pin--active')) {
+        removePinActiveClass();
+
+        element.classList.add('pin--active');
+
+        window.showCard(dialogElement, element, chosenSimilarApartments);
+      }
     }
   }
 }
@@ -49,13 +53,16 @@ function handleOnClickPin(event) {
 
 (function () {
   var dialogCloseElement = dialogElement.querySelector('.dialog__close');
+
   dialogCloseElement.addEventListener('click', handleOnClickDialogClose);
   dialogCloseElement.addEventListener('keydown', handleOnClickDialogClose);
 
   function handleOnClickDialogClose(event) {
     event.preventDefault();
+
     if (event.type === 'click' || event.keyCode === ENTER_KEY_CODE) {
       dialogElement.classList.add('invisible');
+
       removePinActiveClass();
     }
   }
@@ -74,6 +81,8 @@ function removePinActiveClass() {
 }
 
 function showSimilarPosts (apartmentsArray) {
+  var newApartmentsArray = [];
+
   if ('content' in document.createElement('template')) {
     for (var i = 0; i < 3; i++) {
 
@@ -81,11 +90,18 @@ function showSimilarPosts (apartmentsArray) {
       templateElement.content.querySelector('img').src = apartmentsArray[i].author.avatar;
 
       var currentTemplatePin = templateElement.content.querySelector('.pin');
+
+      currentTemplatePin.dataset.itemIndex = i;
+
       currentTemplatePin.style.top = apartmentsArray[i].location.y + 'px';
       currentTemplatePin.style.left = apartmentsArray[i].location.x + 'px';
+
+      newApartmentsArray.push(apartmentsArray[i]);
 
       pinsContainerElement.appendChild(templateElement.content.cloneNode(true));
     }
   }
+
+  return newApartmentsArray;
 }
 })();

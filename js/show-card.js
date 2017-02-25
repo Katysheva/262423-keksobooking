@@ -1,14 +1,16 @@
 'use strict';
 
+    console.log(window);
 window.showCard = function (dialog, elem, pinOffersList) {
 
   for (var i = 0; i < pinOffersList.length; i++) {
 
     var avatarUrl = elem.querySelector('img').attributes.src.nodeValue;
 
-    if (avatarUrl === pinOffersList[i].author.avatar) {
+    if (i === Math.floor(elem.dataset.itemIndex)) {
       var pinOffer = pinOffersList[i];
     }
+
   }
 
   dialog.classList.remove('invisible');
