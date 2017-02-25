@@ -609,6 +609,12 @@ select option:hover {
     line-height: 16px;
 }
 
+.lodge__photos img {
+    margin: 1px;
+}
+/* .lodge__photos img {
+    margin-right: 3px;
+} */
 .pin {
     position: absolute;
 

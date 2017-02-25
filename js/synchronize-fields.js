@@ -6,4 +6,4 @@ window.synchronizeFields = function (fieldIn, fieldOut, valuesIn, valuesOut, cal
       callback(fieldOut, valuesOut[valuesIn.indexOf(fieldIn.value)]);
     }
   });
-}
+};
