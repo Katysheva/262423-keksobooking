@@ -1,9 +1,9 @@
 'use strict';
 
-window.load = (function() {
+window.load = (function () {
   var DATA_URL = 'https://intensive-javascript-server-pedmyactpq.now.sh/keksobooking/data';
 
-  return function(onLoad) {
+  return function (onLoad) {
     var xhr = new XMLHttpRequest();
     xhr.addEventListener('load', onLoad);
     xhr.responseType = 'json';
