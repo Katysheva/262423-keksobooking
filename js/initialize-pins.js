@@ -24,7 +24,7 @@ window.initializePins = (function () {
     }
 
     // filteredPins = getSimilarPosts(similarApartments);
-    showFilteredPosts(filteredPins)
+    showFilteredPosts(filteredPins);
 
     subscribePins();
     setInitialFilterState();
@@ -99,7 +99,7 @@ window.initializePins = (function () {
 
     similarApartments.forEach(function (item) {
 
-      var itemPrice = parseInt(item.offer.price);
+      var itemPrice = parseInt(item.offer.price, 10);
       if (itemPrice <= 10000) {
         itemPrice = 'low';
 
@@ -119,7 +119,7 @@ window.initializePins = (function () {
       }
 
       var itemRoomsCount = false;
-      if (item.offer.rooms === parseInt(curFilter.rooms)) {
+      if (item.offer.rooms === parseInt(curFilter.rooms, 10)) {
         itemRoomsCount = item.offer.rooms;
 
       } else if (curFilter.rooms === 'any') {
@@ -127,7 +127,7 @@ window.initializePins = (function () {
       }
 
       var itemGuestsCount = false;
-      if (item.offer.guests === parseInt(curFilter.guests)) {
+      if (item.offer.guests === parseInt(curFilter.guests, 10)) {
         itemGuestsCount = item.offer.guests;
 
       } else if (curFilter.guests === 'any') {
