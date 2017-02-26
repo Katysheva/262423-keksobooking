@@ -16,8 +16,15 @@ window.initializePins = (function () {
 
   window.load(function (evt) {
     similarApartments = evt.target.response;
+    var similarApartmentsCount = 3;
 
-    filteredPins = showSimilarPosts(similarApartments);
+    while (similarApartmentsCount !== 0) {
+      similarApartmentsCount--;
+      filteredPins.push(similarApartments[similarApartmentsCount]);
+    }
+
+    // filteredPins = getSimilarPosts(similarApartments);
+    showFilteredPosts(filteredPins)
 
     subscribePins();
     setInitialFilterState();
@@ -92,7 +99,7 @@ window.initializePins = (function () {
 
     similarApartments.forEach(function (item) {
 
-      var itemPrice = Math.floor(item.offer.price);
+      var itemPrice = parseInt(item.offer.price);
       if (itemPrice <= 10000) {
         itemPrice = 'low';
 
@@ -112,7 +119,7 @@ window.initializePins = (function () {
       }
 
       var itemRoomsCount = false;
-      if (item.offer.rooms === Math.floor(curFilter.rooms)) {
+      if (item.offer.rooms === parseInt(curFilter.rooms)) {
         itemRoomsCount = item.offer.rooms;
 
       } else if (curFilter.rooms === 'any') {
@@ -120,7 +127,7 @@ window.initializePins = (function () {
       }
 
       var itemGuestsCount = false;
-      if (item.offer.guests === Math.floor(curFilter.guests)) {
+      if (item.offer.guests === parseInt(curFilter.guests)) {
         itemGuestsCount = item.offer.guests;
 
       } else if (curFilter.guests === 'any') {
@@ -199,24 +206,12 @@ window.initializePins = (function () {
     }
   }
 
-  function showSimilarPosts(apartmentsArray) {
-    var newApartmentsArray = [];
-
-    if ('content' in document.createElement('template')) {
-      for (var i = 0; i < 3; i++) {
-
-        showPost(apartmentsArray, i);
-        newApartmentsArray.push(apartmentsArray[i]);
-      }
-    }
-    return newApartmentsArray;
-  }
-
   function showFilteredPosts(apartmentsFilteredArray) {
-    var newApartmentsArray = [];
+
     var pins = pinsContainerElement.querySelectorAll('.pin');
 
     pins.forEach(function (item) {
+
       if (!item.classList.contains('pin__main')) {
         pinsContainerElement.removeChild(item);
       }
@@ -226,12 +221,8 @@ window.initializePins = (function () {
       for (var i = 0; i < apartmentsFilteredArray.length; i++) {
 
         showPost(apartmentsFilteredArray, i);
-
-        newApartmentsArray.push(apartmentsFilteredArray[i]);
       }
     }
-
-    return newApartmentsArray;
   }
 
 

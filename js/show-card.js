@@ -21,27 +21,32 @@ window.showCard = function (dialog, elem, pinOffersList) {
   dialog.querySelector('.lodge__checkin-time').innerHTML = 'Заезд после ' + pinOffer.offer.checkin + ', выезд до ' + pinOffer.offer.checkout;
   dialog.querySelector('.lodge__description').innerHTML = pinOffer.offer.description;
 
-// show features
+  // show features
 
   var features = dialog.querySelector('.lodge__features');
   features.innerHTML = '';
 
-  (pinOffer.offer.features).forEach(function (item) {
-    var curFeature = document.createElement('span');
+  var curFeature;
+  pinOffer.offer.features.forEach(function (item) {
+
+    curFeature = document.createElement('span');
+
     curFeature.className = 'feature__image';
     curFeature.classList.add('feature__image--' + item);
 
     features.appendChild(curFeature);
   });
 
-
-// show photos
+  // show photos
 
   var photos = dialog.querySelector('.lodge__photos');
   photos.innerHTML = '';
 
-  (pinOffer.offer.photos).forEach(function (item) {
-    var curPhoto = document.createElement('img');
+  var curPhoto;
+  pinOffer.offer.photos.forEach(function (item) {
+
+    curPhoto = document.createElement('img');
+
     curPhoto.src = item;
     curPhoto.alt = 'Lodge photo';
     curPhoto.width = '52';
