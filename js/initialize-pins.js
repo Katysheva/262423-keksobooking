@@ -7,7 +7,6 @@ window.initializePins = (function () {
   var filtersElement = document.querySelector('.tokyo__filters');
 
   var ENTER_KEY_CODE = 13;
-  // var chosenSimilarApartments;
 
   var similarApartments = [];
   var filter = {};
@@ -23,7 +22,6 @@ window.initializePins = (function () {
       filteredPins.push(similarApartments[similarApartmentsCount]);
     }
 
-    // filteredPins = getSimilarPosts(similarApartments);
     showFilteredPosts(filteredPins);
 
     subscribePins();
@@ -41,7 +39,8 @@ window.initializePins = (function () {
       type: 'any',
       price: 'middle',
       rooms: 'any',
-      guests: 'any'
+      guests: 'any',
+      features: []
     };
 
     var housingTypes = filtersElement.querySelector('#housing_type').options;
@@ -84,10 +83,27 @@ window.initializePins = (function () {
 
   function handleOnChangeFilters(event) {
     var element = event.target;
-    var selectedOption = element.options[element.selectedIndex].value;
-    var filterName = element.id.slice('housing_'.length);
 
-    filter[filterName] = selectedOption;
+    var filterName = '';
+
+    if (element.nodeName === 'SELECT') {
+
+      var selectedOption = element.options[element.selectedIndex].value;
+
+      filterName = element.id.slice('housing_'.length);
+      filter[filterName] = selectedOption;
+
+    } else if (element.nodeName === 'INPUT') {
+      filterName = 'features';
+
+      if (element.checked === true) {
+        filter[filterName].push(element.value);
+
+      } else {
+        filter[filterName].splice(filter[filterName].indexOf(element.value), 1);
+      }
+    }
+
 
     filteredPins = getFilteredPins(filter);
 
@@ -134,9 +150,22 @@ window.initializePins = (function () {
         itemGuestsCount = true;
       }
 
-      if (itemType && itemPrice === curFilter.price && itemRoomsCount && itemGuestsCount) {
+      var features = false;
+      if (curFilter.features.length > 0) {
+        curFilter.features.forEach(function (featureItem) {
+
+          if (item.offer.features.indexOf(featureItem) !== -1) {
+            features = item.offer.features;
+          }
+        });
+      } else {
+        features = true;
+      }
+
+      if (itemType && itemPrice === curFilter.price && itemRoomsCount && itemGuestsCount && features) {
         filteredData.push(item);
       }
+
     });
 
     return filteredData;
