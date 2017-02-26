@@ -4,8 +4,10 @@ window.showCard = function (dialog, elem, pinOffersList) {
 
   for (var i = 0; i < pinOffersList.length; i++) {
 
+    var pinOffer;
+
     if (i === Math.floor(elem.dataset.itemIndex)) {
-      var pinOffer = pinOffersList[i];
+      pinOffer = pinOffersList[i];
     }
 
   }
