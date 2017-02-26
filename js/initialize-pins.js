@@ -23,45 +23,6 @@ window.initializePins = (function () {
     setInitialFilterState();
   });
 
-
-
-  var arr = [
-  { id: 15 },
-  { id: -1 },
-  { id: 0 },
-  { id: 3 },
-  { id: 12.2 },
-  { },
-  { id: null },
-  { id: NaN },
-  { id: 'undefined' }
-  ];
-
-  var invalidEntries = 0;
-
-  function filterByID(obj) {
-    if ('id' in obj && typeof(obj.id) === 'number' && !isNaN(obj.id)) {
-      return true;
-    } else {
-      invalidEntries++;
-      return false;
-    }
-  }
-
-  var arrByID = arr.filter(filterByID);
-  console.log('Отфильтрованный массив\n', arrByID);
-
-
-
-
-
-
-
-
-
-
-
-
   filtersElement.addEventListener('change', handleOnChangeFilters);
 
   /**
@@ -89,27 +50,27 @@ window.initializePins = (function () {
       }
     }
 
-    for (var i = 0; i < housingPrices.length; i++) {
+    for (var j = 0; j < housingPrices.length; j++) {
 
-      if (housingPrices[i].value === filter.type) {
+      if (housingPrices[j].value === filter.type) {
 
-        housingPrices[i].selected = true;
+        housingPrices[j].selected = true;
       }
     }
 
-    for (var i = 0; i < housingRooms.length; i++) {
+    for (var k = 0; k < housingRooms.length; k++) {
 
-      if (housingRooms[i].value === filter.type) {
+      if (housingRooms[k].value === filter.type) {
 
-        housingRooms[i].selected = true;
+        housingRooms[k].selected = true;
       }
     }
 
-    for (var i = 0; i < housingGuests.length; i++) {
+    for (var l = 0; l < housingGuests.length; l++) {
 
-      if (housingGuests[i].value === filter.type) {
+      if (housingGuests[l].value === filter.type) {
 
-        housingGuests[i].selected = true;
+        housingGuests[l].selected = true;
       }
     }
   }
@@ -126,7 +87,7 @@ window.initializePins = (function () {
     showFilteredPosts(filteredPins);
   }
 
-  function getFilteredPins(filter){
+  function getFilteredPins(curFilter) {
     var filteredData = [];
 
     similarApartments.forEach(function (item) {
@@ -143,30 +104,30 @@ window.initializePins = (function () {
       }
 
       var itemType = false;
-      if (item.offer.type === filter.type) {
+      if (item.offer.type === curFilter.type) {
         itemType = item.offer.type;
 
-      } else if (filter.type === 'any') {
+      } else if (curFilter.type === 'any') {
         itemType = true;
       }
 
       var itemRoomsCount = false;
-      if (item.offer.rooms === Math.floor(filter.rooms)) {
+      if (item.offer.rooms === Math.floor(curFilter.rooms)) {
         itemRoomsCount = item.offer.rooms;
 
-      } else if (filter.rooms === 'any') {
+      } else if (curFilter.rooms === 'any') {
         itemRoomsCount = true;
       }
 
       var itemGuestsCount = false;
-      if (item.offer.guests === Math.floor(filter.guests)) {
+      if (item.offer.guests === Math.floor(curFilter.guests)) {
         itemGuestsCount = item.offer.guests;
 
-      } else if (filter.guests === 'any') {
+      } else if (curFilter.guests === 'any') {
         itemGuestsCount = true;
       }
 
-      if (itemType && itemPrice === filter.price && itemRoomsCount && itemGuestsCount) {
+      if (itemType && itemPrice === curFilter.price && itemRoomsCount && itemGuestsCount) {
         filteredData.push(item);
       }
     });
