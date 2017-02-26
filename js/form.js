@@ -36,6 +36,7 @@ var syncValues = function (element, value) {
 (function () {
   var startTime = document.getElementById('time');
   var endTime = document.getElementById('timeout');
+
   var timeValues = ['12', '13', '14'];
 
   window.synchronizeFields(startTime, endTime, timeValues, timeValues, syncValues);
