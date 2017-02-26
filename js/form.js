@@ -25,17 +25,18 @@ var priceInputElement = noticeFormElement.querySelector('#price');
 * checking time block
 */
 
-var syncValueWithMin = function(element, value) {
+var syncValueWithMin = function (element, value) {
   element.min = value;
 };
 
-var syncValues = function(element, value) {
+var syncValues = function (element, value) {
   element.value = value;
 };
 
 (function () {
   var startTime = document.getElementById('time');
   var endTime = document.getElementById('timeout');
+
   var timeValues = ['12', '13', '14'];
 
   window.synchronizeFields(startTime, endTime, timeValues, timeValues, syncValues);
