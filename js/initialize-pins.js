@@ -29,13 +29,13 @@ window.initializePins = (function () {
   * filtered data
   */
 
-  function setInitialFilterState () {
+  function setInitialFilterState() {
     filter = {
       type: 'any',
       price: 'middle',
       rooms: 'any',
       guests: 'any'
-    }
+    };
 
     var housingTypes = filtersElement.querySelector('#housing_type').options;
     var housingPrices = filtersElement.querySelector('#housing_price').options;
