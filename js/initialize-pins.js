@@ -185,7 +185,7 @@ window.initializePins = (function () {
     if (event.type === 'click' || event.keyCode === ENTER_KEY_CODE) {
       var element = event.target;
 
-      if (!element.offsetParent.classList.contains('pin__main')) {
+      if (!element.offsetParent.classList.contains('pin__main') && !element.classList.contains('pin__main')) {
 
         if (element.offsetParent.classList.contains('pin')) {
           element = event.target.offsetParent;
