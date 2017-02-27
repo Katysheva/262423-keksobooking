@@ -9,7 +9,6 @@ window.showCard = function (dialog, elem, pinOffersList) {
     if (i === Math.floor(elem.dataset.itemIndex)) {
       pinOffer = pinOffersList[i];
     }
-
   }
 
   dialog.classList.remove('invisible');
@@ -46,8 +45,8 @@ window.showCard = function (dialog, elem, pinOffersList) {
 
   var curPhoto;
 
-  for (var i = 0; i < pinOffer.offer.photos.length; i++) {
-    var item = pinOffer.offer.photos[i];
+  for (var j = 0; j < pinOffer.offer.photos.length; j++) {
+    var item = pinOffer.offer.photos[j];
 
     curPhoto = document.createElement('img');
 
