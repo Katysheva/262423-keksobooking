@@ -9,7 +9,6 @@ window.showCard = function (dialog, elem, pinOffersList) {
     if (i === Math.floor(elem.dataset.itemIndex)) {
       pinOffer = pinOffersList[i];
     }
-
   }
 
   dialog.classList.remove('invisible');
@@ -45,7 +44,9 @@ window.showCard = function (dialog, elem, pinOffersList) {
   photos.innerHTML = '';
 
   var curPhoto;
-  pinOffer.offer.photos.forEach(function (item) {
+
+  for (var j = 0; j < pinOffer.offer.photos.length; j++) {
+    var item = pinOffer.offer.photos[j];
 
     curPhoto = document.createElement('img');
 
@@ -55,5 +56,5 @@ window.showCard = function (dialog, elem, pinOffersList) {
     curPhoto.height = '42';
 
     photos.appendChild(curPhoto);
-  });
+  }
 };
