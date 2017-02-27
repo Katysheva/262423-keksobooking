@@ -45,7 +45,9 @@ window.showCard = function (dialog, elem, pinOffersList) {
   photos.innerHTML = '';
 
   var curPhoto;
-  pinOffer.offer.photos.forEach(function (item) {
+
+  for (var i = 0; i < pinOffer.offer.photos.length; i++) {
+    var item = pinOffer.offer.photos[i];
 
     curPhoto = document.createElement('img');
 
@@ -55,5 +57,5 @@ window.showCard = function (dialog, elem, pinOffersList) {
     curPhoto.height = '42';
 
     photos.appendChild(curPhoto);
-  });
+  }
 };

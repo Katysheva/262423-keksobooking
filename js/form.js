@@ -1,64 +1,72 @@
 'use strict';
 
-var noticeFormElement = document.querySelector('.notice__form');
-
-var placeTypeElement = noticeFormElement.querySelector('#type');
-var priceInputElement = noticeFormElement.querySelector('#price');
 
 (function () {
 
-  var noticeTitleElement = noticeFormElement.querySelector('#title');
-  var addressElement = noticeFormElement.querySelector('#address');
+  var noticeFormElement = document.querySelector('.notice__form');
 
-  noticeTitleElement.minLength = '30';
-  noticeTitleElement.maxLength = '100';
-  noticeTitleElement.required = 'true';
+  var placeTypeElement = noticeFormElement.querySelector('#type');
+  var priceInputElement = noticeFormElement.querySelector('#price');
 
-  priceInputElement.min = '1000';
-  priceInputElement.max = '1000000';
-  priceInputElement.required = 'true';
+  (function () {
 
-  addressElement.required = 'true';
-})();
+    var noticeTitleElement = noticeFormElement.querySelector('#title');
+    var addressElement = noticeFormElement.querySelector('#address');
 
-/**
-* checking time block
-*/
+    noticeTitleElement.minLength = '30';
+    noticeTitleElement.maxLength = '100';
+    noticeTitleElement.required = 'true';
 
-var syncValueWithMin = function (element, value) {
-  element.min = value;
-};
+    priceInputElement.min = '1000';
+    priceInputElement.max = '1000000';
+    priceInputElement.required = 'true';
 
-var syncValues = function (element, value) {
-  element.value = value;
-};
+    addressElement.required = 'true';
+  })();
 
-(function () {
-  var startTime = document.getElementById('time');
-  var endTime = document.getElementById('timeout');
+  /**
+  * checking time block
+  */
 
-  var timeValues = ['12', '13', '14'];
+  var syncValueWithMin = function (element, value) {
+    element.min = value;
+  };
 
-  window.synchronizeFields(startTime, endTime, timeValues, timeValues, syncValues);
-  window.synchronizeFields(endTime, startTime, timeValues, timeValues, syncValues);
-})();
+  var syncValues = function (element, value) {
+    element.value = value;
+  };
 
-/**
-* rooms count & capacity binding
-*/
+  (function () {
+    var startTime = document.getElementById('time');
+    var endTime = document.getElementById('timeout');
 
-(function () {
-  var roomNumberEl = noticeFormElement.querySelector('#room_number');
-  var capacityEl = noticeFormElement.querySelector('#capacity');
+    var timeValues = ['12', '13', '14'];
 
-  window.synchronizeFields(roomNumberEl, capacityEl, ['1', '2', '100'], ['0', '3', '3'], syncValues);
-})();
+    window.synchronizeFields(startTime, endTime, timeValues, timeValues, syncValues);
+    window.synchronizeFields(endTime, startTime, timeValues, timeValues, syncValues);
+  })();
 
-/**
-* type of place & price binding
-*/
+  /**
+  * rooms count & capacity binding
+  */
 
-(function () {
-  var priceValues = ['1000', '0', '10000'];
-  window.synchronizeFields(placeTypeElement, priceInputElement, priceValues, priceValues, syncValueWithMin);
+  (function () {
+    var roomNumberEl = noticeFormElement.querySelector('#room_number');
+    var capacityEl = noticeFormElement.querySelector('#capacity');
+
+    var roomNumberValues = ['1', '2', '100'];
+    var guestsCountValues = ['0', '3', '3'];
+
+    window.synchronizeFields(roomNumberEl, capacityEl, roomNumberValues, guestsCountValues, syncValues);
+  })();
+
+  /**
+  * type of place & price binding
+  */
+
+  (function () {
+    var priceValues = ['1000', '0', '10000'];
+    window.synchronizeFields(placeTypeElement, priceInputElement, priceValues, priceValues, syncValueWithMin);
+  })();
+
 })();
