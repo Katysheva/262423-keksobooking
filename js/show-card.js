@@ -60,6 +60,3 @@ window.showCard = (function () {
     photos.appendChild(templateElement.content.cloneNode(true));
   }
 })();
-
-
-
