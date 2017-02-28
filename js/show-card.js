@@ -4,7 +4,7 @@ window.showCard = (function () {
 
   return function (dialog, elem, pinOffersList) {
 
-    if (pinOffersList !== undefined && pinOffersList.length > 0) {
+    if (pinOffersList && pinOffersList.length > 0) {
 
       for (var i = 0; i < pinOffersList.length; i++) {
 
@@ -48,10 +48,10 @@ window.showCard = (function () {
       photos.innerHTML = '';
 
       pinOffer.offer.photos.forEach(function (item) {
-        showPhoto(item, photos)
+        showPhoto(item, photos);
       });
     }
-  }
+  };
 
   function showPhoto(imgSrc, photos) {
     var templateElement = document.querySelector('#lodge-photos-template');
